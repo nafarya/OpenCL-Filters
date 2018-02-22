@@ -24,22 +24,15 @@ __kernel void gaussian_blur_local(__read_only image2d_t src, __write_only image2
 	}  
 	barrier(CLK_LOCAL_MEM_FENCE);
 	
-	
-	for (int i = 0; i < WS; i++) {
-		for (int j = 0; j < WS; j++) {
-			float4 convPix = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
-			for (int conv_i = -HALFCONVSZ; conv_i <= HALFCONVSZ; conv_i++) {
-					for (int conv_j = -HALFCONVSZ; conv_j <= HALFCONVSZ; conv_j++) {
-						float4 px = B[i+conv_i+WS][j+conv_j+WS];
-						convPix += px * convArr[(conv_i+1)*convSize+(conv_j+1)];
-					}
-				}
-			barrier(CLK_LOCAL_MEM_FENCE);
-			write_imagef(output, (int2)(BLOCK_X+j, BLOCK_Y+i), convPix / factor);
+	float4 convPix = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
+	for (int conv_i = -HALFCONVSZ; conv_i <= HALFCONVSZ; conv_i++) {
+			for (int conv_j = -HALFCONVSZ; conv_j <= HALFCONVSZ; conv_j++) {
+				float4 px = B[f+conv_i+WS][f1+conv_j+WS];
+				convPix += px * convArr[(conv_i+1)*convSize+(conv_j+1)];
+			}
 		}
-	}
-
-
+	barrier(CLK_LOCAL_MEM_FENCE);
+	write_imagef(output, (int2)(BLOCK_X+f1, BLOCK_Y+f), convPix / factor);
 	
 }
 
