@@ -13,22 +13,23 @@ using namespace std;
 
 const int KERNELSIZE = 5;
 
-const float FACTOR3x3 = 1;
-const float FACTOR5x5 = 13;
+const float BLURFACTOR3x3 = 1;
+const float BLURFACTOR5x5 = 13;
 
-float* blur3x3 = new float[9]{
+const float* blur3x3 = new float[9]{
 	0.0f, 0.2f, 0.0f,
 	0.2f, 0.2f, 0.2f,
 	0.0f, 0.2f, 0.0f
 };
 
-float* blur5x5 = new float[25]{
+const float* blur5x5 = new float[25]{
 	0, 0, 1, 0, 0,
 	0, 1, 1, 1, 0,
 	1, 1, 1, 1, 1,
 	0, 1, 1, 1, 0,
 	0, 0, 1, 0, 0
 };
+
 
 const int WS = 8;
 
@@ -193,13 +194,13 @@ void parallelFilterConv(float* a) {
 	cl_device_id devices[10];
 	cl_uint num_devices = 0;
 
-	cl_int n1 = clGetDeviceIDs(platforms[0], device_type, num_entries, devices, &num_devices);
+	cl_int n1 = clGetDeviceIDs(platforms[1], device_type, num_entries, devices, &num_devices);
 	printf("Number of devices = %d\n", num_devices);
 
-	char deviceNames[200];
+	char deviceNames[10240];
 	printf("------------------------------------------\n");
 	for (int i = 0; i < num_devices; i++) {
-		cl_int aa = clGetDeviceInfo(devices[i], CL_DEVICE_NAME, 10240, deviceNames, NULL);
+		cl_int aa = clGetDeviceInfo(devices[i], CL_DEVICE_NAME, sizeof(deviceNames), deviceNames, NULL);
 		printf("%s\n", deviceNames);
 	}
 	printf("------------------------------------------\n\n");
@@ -265,7 +266,7 @@ void parallelFilterConv(float* a) {
 	clSetKernelArg(ker, 1, sizeof(image3), &image3);
 	clSetKernelArg(ker, 2, sizeof(buff_filter), &buff_filter);
 	clSetKernelArg(ker, 3, sizeof(int), &KERNELSIZE);
-	clSetKernelArg(ker, 4, sizeof(float), &FACTOR5x5);
+	clSetKernelArg(ker, 4, sizeof(float), &BLURFACTOR5x5);
 
 	clEnqueueWriteBuffer(com_queue, buff_filter, CL_FALSE, 0, sizeof(float)*KERNELSIZE*KERNELSIZE, blur5x5, NULL, NULL, NULL);
 
@@ -292,7 +293,7 @@ void parallelFilterConv(float* a) {
 	cl_ulong start, end;
 	clGetEventProfilingInfo(timer, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &start, NULL);
 	clGetEventProfilingInfo(timer, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &end, NULL);
-	printf("time: %llu\n", end - start);
+	printf("time: %llu nanosec\n", end - start);
 
 
 
@@ -316,7 +317,7 @@ void parallelFilterConv(float* a) {
 int main() {
 
 
-	vector<vector<int>> file1 = readFile("frame0015.pgm");
+	vector<vector<int>> file1 = readFile("blured.pgm");
 
 	float* a = new float[(rows + WS * 2)*(cols + WS * 2) * 3];
 

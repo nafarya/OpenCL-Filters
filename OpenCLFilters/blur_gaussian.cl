@@ -5,6 +5,7 @@ __kernel void gaussian_blur_local(__read_only image2d_t src, __write_only image2
 	
 	
 	const int WS = 8;
+
 	const int X = get_group_id(0);
 	const int Y = get_group_id(1);
 
@@ -16,10 +17,12 @@ __kernel void gaussian_blur_local(__read_only image2d_t src, __write_only image2
 
 	const int HALFCONVSZ = (convSize / 2);
 	
-	__local float4 B[WS*3][WS*3];
+
+	__local float4 B[WS*3*WS*3];
+
 	for (int i = -1; i <= 1; i++) {
 		for (int j = -1; j <= 1; j++) {	
-			B[(i+1)*WS+f][(j+1)*WS+f1] = read_imagef(src, sampler, (int2)(BLOCK_X+f1 + (j*WS), BLOCK_Y+f + (i*WS)));
+			B[((i+1)*WS+f) * (WS*3) +(j+1)*WS+f1] = read_imagef(src, sampler, (int2)(BLOCK_X+f1 + (j*WS), BLOCK_Y+f + (i*WS)));
 		}
 	}  
 	barrier(CLK_LOCAL_MEM_FENCE);
@@ -27,7 +30,7 @@ __kernel void gaussian_blur_local(__read_only image2d_t src, __write_only image2
 	float4 convPix = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
 	for (int conv_i = -HALFCONVSZ; conv_i <= HALFCONVSZ; conv_i++) {
 			for (int conv_j = -HALFCONVSZ; conv_j <= HALFCONVSZ; conv_j++) {
-				float4 px = B[f+conv_i+WS][f1+conv_j+WS];
+				float4 px = B[(f+conv_i+WS) * (WS*3) + f1+conv_j+WS];
 				convPix += px * convArr[(conv_i+1)*convSize+(conv_j+1)];
 			}
 		}
