@@ -16,9 +16,9 @@ Implemented OpenCL-based convolution filter(used for blurring, sharpening, embos
 
 1. **Boxblur filter(normalized)** 3x3, factor = 1.
 ```  
-  Blur filter 3x3:
+  BoxBlur filter 3x3:
        { 0.0, 0.2, 0.0 }
-  1/9  { 0.2, 0.2, 0.2 }
+       { 0.2, 0.2, 0.2 }
        { 0.0, 0.2, 0.0 }
 ```    
     
@@ -27,7 +27,7 @@ result of applying filter 3x3 3 times:
 
 2. **Boxblur filter(normalized)** 5x5, factor = 13.
 ```
-  Blur filter 5x5:
+  BoxBlur filter 5x5:
         { 0, 0, 1, 0, 0 }
         { 0, 1, 1, 1, 0 }
    1/13 { 1, 1, 1, 1, 1 }
