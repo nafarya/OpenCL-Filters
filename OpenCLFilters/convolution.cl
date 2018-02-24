@@ -1,7 +1,7 @@
 __constant sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
 
 
-__kernel void gaussian_blur_local(__read_only image2d_t src, __write_only image2d_t output,  __constant float *convArr, int convSize, float factor) {
+__kernel void convolution_local(__read_only image2d_t src, __write_only image2d_t output,  __constant float *convArr, int convSize, float factor) {
 	
 	
 	const int WS = 8;
@@ -41,7 +41,7 @@ __kernel void gaussian_blur_local(__read_only image2d_t src, __write_only image2
 
 
 
-__kernel void gaussian_blur_global(__read_only image2d_t src, __write_only image2d_t output,  __constant float *convArr, int convSize, float factor) {
+__kernel void convolution_global(__read_only image2d_t src, __write_only image2d_t output,  __constant float *convArr, int convSize, float factor) {
 	const int BLOCKSIZE = 8;
 	const int X = get_global_id(0);
 	const int Y = get_global_id(1);

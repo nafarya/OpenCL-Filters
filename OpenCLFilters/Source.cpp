@@ -11,10 +11,11 @@
 
 using namespace std;
 
-const int KERNELSIZE = 5;
+const int KERNELSIZE = 7;
 
 const float BLURFACTOR3x3 = 1;
 const float BLURFACTOR5x5 = 13;
+const float BLURFACTOR7x7 = 25;
 
 const float* blur3x3 = new float[9]{
 	0.0f, 0.2f, 0.0f,
@@ -30,6 +31,15 @@ const float* blur5x5 = new float[25]{
 	0, 0, 1, 0, 0
 };
 
+const float* blur7x7 = new float[49]{
+	0, 0, 0, 1, 0, 0, 0,
+	0, 0, 1, 1, 1, 0, 0,
+	0, 1, 1, 1, 1, 1, 0,
+	1, 1, 1, 1, 1, 1, 1,
+	0, 1, 1, 1, 1, 1, 0,
+	0, 0, 1, 1, 1, 0, 0,
+	0, 0, 0, 1, 0, 0, 0
+};
 
 const int WS = 8;
 
@@ -218,7 +228,7 @@ void parallelFilterConv(float* a) {
 	char * buff;
 	size_t lengths;
 
-	pFile = fopen("blur_gaussian.cl", "rb");
+	pFile = fopen("convolution.cl", "rb");
 	if (pFile == NULL) {
 		fputs("File error", stderr);
 		exit(1);
@@ -256,7 +266,7 @@ void parallelFilterConv(float* a) {
 	err_check(error, "image3: clCreateImage2D");
 
 
-	const char *kernel_name = "gaussian_blur_local";
+	const char *kernel_name = "convolution_local";
 	cl_kernel ker = clCreateKernel(prog, kernel_name, &error);
 
 
@@ -266,9 +276,9 @@ void parallelFilterConv(float* a) {
 	clSetKernelArg(ker, 1, sizeof(image3), &image3);
 	clSetKernelArg(ker, 2, sizeof(buff_filter), &buff_filter);
 	clSetKernelArg(ker, 3, sizeof(int), &KERNELSIZE);
-	clSetKernelArg(ker, 4, sizeof(float), &BLURFACTOR5x5);
+	clSetKernelArg(ker, 4, sizeof(float), &BLURFACTOR7x7);
 
-	clEnqueueWriteBuffer(com_queue, buff_filter, CL_FALSE, 0, sizeof(float)*KERNELSIZE*KERNELSIZE, blur5x5, NULL, NULL, NULL);
+	clEnqueueWriteBuffer(com_queue, buff_filter, CL_FALSE, 0, sizeof(float)*KERNELSIZE*KERNELSIZE, blur7x7, NULL, NULL, NULL);
 
 	size_t origin[] = { 0,0,0 }; // Defines the offset in pixels in the image from where to write.
 	size_t region[] = { width, height, 1 }; // Size of object to be transferred
@@ -317,7 +327,7 @@ void parallelFilterConv(float* a) {
 int main() {
 
 
-	vector<vector<int>> file1 = readFile("blured.pgm");
+	vector<vector<int>> file1 = readFile("frame0015.pgm");
 
 	float* a = new float[(rows + WS * 2)*(cols + WS * 2) * 3];
 
