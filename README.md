@@ -1,8 +1,8 @@
 # OpenCL-Filters
-Implemented OpenCL-based blur filter for images/frames
+Implemented OpenCL-based convolution filter(used for blurring, sharpening, embossing, edge detection, and more).
 
 
-# Examples
+# Examples for bluring
 
 **Source frame**
 
