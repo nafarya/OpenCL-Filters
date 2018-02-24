@@ -1,0 +1,24 @@
+#ProfileFileVersion=3.1
+#ProfilerVersion=3.1.10103
+#API=OpenCL
+#Application=C:/Users/1/Documents/Visual Studio 2017/Projects/GSoCOpenCL/OpenCLFilters/x64/Release/OpenCLFilters.exe
+#ApplicationArgs=
+#WorkingDirectory=C:/Users/1/Documents/Visual Studio 2017/Projects/GSoCOpenCL/OpenCLFilters/OpenCLFilters
+#Device Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz Platform Vendor=Advanced Micro Devices, Inc.
+#Device Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz Platform Name=AMD Accelerated Parallel Processing
+#Device Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz Platform Version=OpenCL 2.1 AMD-APP (2527.8)
+#Device Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz CLDriver Version=2527.8 (sse2,avx)
+#Device Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz CLRuntime Version=OpenCL 1.2 AMD-APP (2527.8)
+#Device Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz NumberAppAddressBits=64
+#Device Oland Platform Vendor=Advanced Micro Devices, Inc.
+#Device Oland Platform Name=AMD Accelerated Parallel Processing
+#Device Oland Platform Version=OpenCL 2.1 AMD-APP (2527.8)
+#Device Oland CLDriver Version=2527.8
+#Device Oland CLRuntime Version=OpenCL 1.2 AMD-APP (2527.8)
+#Device Oland NumberAppAddressBits=32
+#OS Version=Windows 8 Build 6.2.9200
+#DisplayName=Feb-24-2018_16-54-17
+#ListSeparator=;
+#ForceSinglePass=False
+Method; ExecutionOrder; ThreadID; CallIndex; GlobalWorkSize; WorkGroupSize; Time; LocalMemSize; VGPRs; SGPRs; ScratchRegs; FCStacks; Wavefronts; VALUInsts; SALUInsts; VFetchInsts; SFetchInsts; VWriteInsts; LDSInsts; GDSInsts; VALUUtilization; VALUBusy; SALUBusy; FetchSize; WriteSize; CacheHit; MemUnitBusy; MemUnitStalled; WriteUnitStalled; LDSBankConflict
+convolution_local__k1_Oland1; 1; 12652; 21; {   1280     720       1}; {    8     8     1};        17.10637; 9216; 42; 26; 0; NA;     14400.00;       363.00;       243.00;         9.00;        57.00;         1.00;       107.00;         0.00;       100.00;        17.26;        11.46;      4065.44;      3600.00;        73.88;        11.51;         0.21;         0.00;        16.41
