@@ -1,6 +1,7 @@
 # OpenCL-Filters
 Implemented OpenCL-based convolution filter(used for blurring, sharpening, embossing, edge detection, and more).
 
+[CodeXL Profiler information](https://github.com/nafarya/OpenCL-Filters/blob/master/CodeXL_Profiler_Feb-24-2018_16-54-17.csv)
 
 # Examples for bluring
 
