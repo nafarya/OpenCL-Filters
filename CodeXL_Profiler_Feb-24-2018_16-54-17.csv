@@ -20,5 +20,45 @@
 #DisplayName=Feb-24-2018_16-54-17
 #ListSeparator=;
 #ForceSinglePass=False
-Method; ExecutionOrder; ThreadID; CallIndex; GlobalWorkSize; WorkGroupSize; Time; LocalMemSize; VGPRs; SGPRs; ScratchRegs; FCStacks; Wavefronts; VALUInsts; SALUInsts; VFetchInsts; SFetchInsts; VWriteInsts; LDSInsts; GDSInsts; VALUUtilization; VALUBusy; SALUBusy; FetchSize; WriteSize; CacheHit; MemUnitBusy; MemUnitStalled; WriteUnitStalled; LDSBankConflict
-convolution_local__k1_Oland1; 1; 12652; 21; {   1280     720       1}; {    8     8     1};        17.10637; 9216; 42; 26; 0; NA;     14400.00;       363.00;       243.00;         9.00;        57.00;         1.00;       107.00;         0.00;       100.00;        17.26;        11.46;      4065.44;      3600.00;        73.88;        11.51;         0.21;         0.00;        16.41
+
+
+
+
+
+
+
+
+
+| Description | Value |
+| --- | --- |
+| Method           | convolution_local__k1_Oland1 |
+| ExecutionOrder   | 1                            |
+| ThreadID         | 12652                        |
+| CallIndex        | 21                           |
+| GlobalWorkSize   | { 1280 720 1}                | 
+| WorkGroupSize    | { 8 8 1}                     |   
+| Time             | 17.10637                     | 
+| LocalMemSize     | 9216                         | 
+| VGPRs            | 42                           | 
+| SGPRs            | 26                           | 
+| ScratchRegs      | 0                            | 
+| FCStacks         | NA                           |   
+| Wavefronts       | 14400.00                     |  
+| VALUInsts        | 363.00                       |     
+| SALUInsts        | 243.00                       |    
+| VFetchInsts      | 9.00                         |   
+| SFetchInsts      | 57.00                        |   
+| VWriteInsts      | 1.00                         |  
+| LDSInsts         | 107.00                       |    
+| GDSInsts         | 0.00                         |  
+| VALUUtilization  | 100.00                       |  
+| VALUBusy         | 17.26                        | 
+| SALUBusy         | 11.46                        | 
+| FetchSize        | 4065.44                      | 
+| WriteSize        | 3600.00                      |  
+| CacheHit         | 73.88                        | 
+| MemUnitBusy      | 11.51                        |  
+| MemUnitStalled   | 0.21                         |  
+| WriteUnitStalled | 0.00                         |  
+| LDSBankConflict  | 16.41                        | 
+                                                
